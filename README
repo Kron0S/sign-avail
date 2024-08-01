@@ -1,0 +1,26 @@
+# sign-avail
+
+1. Build an image
+```bash
+docker build -t sign-avail .
+```
+
+2. Run it
+```bash
+docker run  --network host  -v ./secret.json:/usr/src/app/secret.json -e RAW_TRANSACTION="0x30040a0113000064a7b3b6e00d" -e PROVIDER="wss://turing-rpc.avail.so/ws" -e SECRET_FILE_NAME="secret.json" -e PASSWORD="***"  -it sign-avail
+```
+
+3. Edit env variables in Dockerfile instead of passing them via a command line
+
+```
+ENV PROVIDER="wss://turing-rpc.avail.so/ws"
+ENV SECRET_FILE_NAME="./secret.json"
+ENV PASSWORD=""
+ENV RAW_TRANSACTION="0x"
+```
+
+Then do
+```bash
+docker build -t sign-avail .
+docker run --network host -it sign-avail
+```
